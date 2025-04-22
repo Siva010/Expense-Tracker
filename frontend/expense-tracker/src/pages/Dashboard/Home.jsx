@@ -10,10 +10,11 @@ import { IoMdCard } from "react-icons/io";
 import { addThousandsSeparator } from "../../utils/helper";
 import TransactionList from "../../components/Dashboard/TransactionList";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
+import { useDashboard } from "../../context/DashboardContext";
 
 const Home = () => {
   useUserAuth();
-
+  const { refreshTrigger } = useDashboard();
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
@@ -41,7 +42,7 @@ const Home = () => {
   useEffect(() => {
     fetchDashboardData();
     return () => {};
-  }, []);
+  }, [refreshTrigger]);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
@@ -69,8 +70,9 @@ const Home = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <TransactionList
-            transactions={dashboardData?.recentTransactions?.slice(0, 5) || []}
+            transactions={dashboardData?.recentTransactions || []}
             title="Recent Transactions"
+            hideDeleteBtn={true}
           />
 
           <FinanceOverview

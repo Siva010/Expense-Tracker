@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
+import { useDashboard } from "../../context/DashboardContext";
 
 // Simple reusable Input component (can be moved to its own file)
 const Input = ({ label, id, ...props }) => (
@@ -47,6 +48,7 @@ const iconOptions = [
 // --- END ICON OPTIONS ---
 
 const AddExpenseForm = ({ onExpenseAdded }) => {
+  const { refreshDashboard } = useDashboard();
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -88,6 +90,7 @@ const AddExpenseForm = ({ onExpenseAdded }) => {
         if (onExpenseAdded) {
           onExpenseAdded();
         }
+        refreshDashboard(); // Use the context function to refresh dashboard
         console.log("Expense added successfully!");
       }
     } catch (err) {

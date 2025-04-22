@@ -3,7 +3,7 @@ import moment from "moment";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
 // Accept onDelete prop from parent
-const TransactionList = ({ transactions, title = "Transactions", type, onDelete }) => {
+const TransactionList = ({ transactions, title = "Transactions", type, onDelete, hideDeleteBtn }) => {
   return (
     <div className="card h-full flex flex-col"> 
       <div className="flex-shrink-0 flex items-center justify-between mb-4">
@@ -18,9 +18,8 @@ const TransactionList = ({ transactions, title = "Transactions", type, onDelete 
             date={item.date}
             amount={item.amount}
             type={item.type}
-            // Remove hideDeleteBtn prop
-            // Pass down the specific delete handler for this item
-            onDelete={() => onDelete && onDelete(item._id, item.type)} // Pass ID and type
+            hideDeleteBtn={hideDeleteBtn}
+            onDelete={() => onDelete && onDelete(item._id, item.type)}
           />
         ))}
         {(!transactions || transactions.length === 0) && (
