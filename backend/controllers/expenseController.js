@@ -1,5 +1,6 @@
 const xlsx = require("xlsx");
 const Expense = require("../models/Expense");
+const moment = require("moment");
 
 //Add Expense source
 exports.addExpense = async (req, res) => {
@@ -9,7 +10,7 @@ exports.addExpense = async (req, res) => {
     const { icon, category, amount, date } = req.body;
 
     // Validation: Check for missing fields
-    if (!category || !amount || !date) {
+    if (!category || !amount || !date || !icon) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const newExpense = new Expense({
@@ -18,6 +19,7 @@ exports.addExpense = async (req, res) => {
       category,
       amount,
       date: new Date(date),
+      type: "expense",
     });
     await newExpense.save();
     res.status(200).json(newExpense);
@@ -27,12 +29,44 @@ exports.addExpense = async (req, res) => {
   }
 };
 
-//Get All Expense source
+//Get All Expense source with Aggregates
 exports.getAllExpense = async (req, res) => {
   const userId = req.user.id;
   try {
-    const expense = await Expense.find({ userId }).sort({ date: -1 });
-    res.json(expense);
+    const allExpense = await Expense.find({ userId }).sort({ date: -1 });
+
+    // Calculate Total Expense
+    const totalExpense = allExpense.reduce((sum, item) => sum + item.amount, 0);
+
+    // Calculate Monthly Expense (Based on the month of the MOST RECENT transaction)
+    let monthlyExpense = 0;
+    if (allExpense.length > 0) {
+        const mostRecentDate = moment(allExpense[0].date);
+        const startOfMonth = mostRecentDate.clone().startOf('month').toDate();
+        const endOfMonth = mostRecentDate.clone().endOf('month').toDate();
+
+        monthlyExpense = allExpense
+          .filter(item => moment(item.date).isBetween(startOfMonth, endOfMonth, null, '[]'))
+          .reduce((sum, item) => sum + item.amount, 0);
+    }
+
+    // Get Recent Expenses (e.g., latest 5)
+    const recentExpenses = allExpense.slice(0, 5);
+
+    // Prepare last 30 days expenses
+    const thirtyDaysAgo = moment().subtract(30, 'days').startOf('day').toDate();
+    const last30daysExpenses = {
+        transactions: allExpense.filter(item => moment(item.date).isSameOrAfter(thirtyDaysAgo))
+    };
+
+    res.json({
+      totalExpense,
+      monthlyExpense, // Now calculated based on most recent transaction's month
+      recentExpenses,
+      last30daysExpenses,
+      allExpense
+    });
+
   } catch (error) {
     console.error("Error fetching expenses:", error);
     res.status(500).json({ message: "Server error" });
