@@ -47,7 +47,7 @@ const TransactionInfoCard = ({
         </div>
         {!hideDeleteBtn && (
           <button
-            className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer ml-auto"
+            className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer ml-auto cursor-pointer"
             onClick={onDelete}
           >
             <LuTrash2 size={18} />
