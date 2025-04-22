@@ -10,6 +10,7 @@ import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Dashboard/Home";
 import Income from "./pages/Dashboard/Income";
 import Expense from "./pages/Dashboard/Expense";
+import Profile from "./pages/Dashboard/Profile";
 import UserProvider from "./context/UserContext";
 import { DashboardProvider } from "./context/DashboardContext";
 
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/dashboard" exact element={<Home />} />
               <Route path="/income" exact element={<Income />} />
               <Route path="/expense" exact element={<Expense />} />
+              <Route path="/profile" exact element={<Profile />} />
             </Routes>
           </Router>
         </div>
