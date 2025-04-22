@@ -9,6 +9,7 @@ import { addThousandsSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import AddExpenseForm from "../../components/Forms/AddExpenseForm";
+import TransactionList from "../../components/Dashboard/TransactionList";
 
 const Expense = () => {
   useUserAuth();
@@ -16,6 +17,7 @@ const Expense = () => {
   const [expenseData, setExpenseData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [deleteError, setDeleteError] = useState("");
 
   const fetchExpenseData = async () => {
     if (loading) return;
@@ -39,6 +41,24 @@ const Expense = () => {
     setRefreshTrigger(prev => prev + 1);
   };
 
+  const handleDeleteTransaction = async (id, type) => {
+    if (type !== 'expense') return;
+    
+    setDeleteError("");
+    
+    try {
+      const response = await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
+      
+      if (response.data) {
+        console.log("Expense deleted successfully:", id);
+        handleExpenseAdded();
+      }
+    } catch (err) {
+      console.error("Error deleting expense:", err);
+      setDeleteError(err.response?.data?.message || "Failed to delete expense.");
+    }
+  };
+
   useEffect(() => {
     fetchExpenseData();
   }, [refreshTrigger]);
@@ -46,7 +66,7 @@ const Expense = () => {
   // Default values for rendering before data loads
   const totalExpense = expenseData?.totalExpense || 0;
   const monthlyExpense = expenseData?.monthlyExpense || 0;
-  const recentExpenses = expenseData?.recentExpenses || [];
+  const allTransactions = expenseData?.transactions || [];
 
   return (
     <DashboardLayout activeMenu="Expense">
@@ -72,10 +92,11 @@ const Expense = () => {
           </div>
 
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <RecentTransactions
-              transactions={recentExpenses}
-              title="Recent Expense Transactions"
+            <TransactionList
+              transactions={allTransactions}
+              title="Expense Transactions"
               type="expense"
+              onDelete={handleDeleteTransaction}
             />
 
             <FinanceOverview
@@ -85,6 +106,8 @@ const Expense = () => {
             />
           </div>
         </div>
+
+        {deleteError && <p className="text-red-500 text-sm mt-4 text-center">{deleteError}</p>}
       </div>
     </DashboardLayout>
   );

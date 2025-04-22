@@ -14,8 +14,7 @@ const ExpenseTransactions = ({ transactions, title = "Expenses" }) => {
           <TransactionInfoCard
             key={expense._id}
             title={expense.category}
-            icon={expense.icon}
-            date={moment(expense.date).format("DD MMM YYYY")}
+            date={expense.date}
             amount={expense.amount}
             type="expense"
             hideDeleteBtn

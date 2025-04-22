@@ -28,7 +28,7 @@ const FinanceOverview = ({
       { name: "Monthly Income", amount: monthlyIncome || 0 },
     ];
     chartLabel = "Total Income";
-    chartTotalAmount = `$${addThousandsSeparator(totalIncome || 0)}`;
+    chartTotalAmount = `₹${addThousandsSeparator(totalIncome || 0)}`;
     chartColors = [INCOME_COLOR, MONTHLY_INCOME_COLOR];
   } else if (pageType === "expense") {
     chartData = [
@@ -36,7 +36,7 @@ const FinanceOverview = ({
       { name: "Monthly Expense", amount: monthlyExpense || 0 },
     ];
     chartLabel = "Total Expense";
-    chartTotalAmount = `$${addThousandsSeparator(totalExpense || 0)}`;
+    chartTotalAmount = `₹${addThousandsSeparator(totalExpense || 0)}`;
     chartColors = [EXPENSE_COLOR, MONTHLY_EXPENSE_COLOR];
   } else { // Default: Dashboard view
     chartData = [
@@ -45,7 +45,7 @@ const FinanceOverview = ({
       { name: "Total Income", amount: totalIncome || 0 },
     ];
     chartLabel = "Total Balance";
-    chartTotalAmount = `$${addThousandsSeparator(totalBalance || 0)}`;
+    chartTotalAmount = `₹${addThousandsSeparator(totalBalance || 0)}`;
     chartColors = [BALANCE_COLOR, EXPENSE_COLOR, INCOME_COLOR];
   }
 

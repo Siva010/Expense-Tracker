@@ -8,7 +8,7 @@ import InfoCard from "../../components/Cards/InfoCard";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoMdCard } from "react-icons/io";
 import { addThousandsSeparator } from "../../utils/helper";
-import RecentTransactions from "../../components/Dashboard/RecentTransactions";
+import TransactionList from "../../components/Dashboard/TransactionList";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 
 const Home = () => {
@@ -68,8 +68,9 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <RecentTransactions
-            transactions={dashboardData?.recentTransactions}
+          <TransactionList
+            transactions={dashboardData?.recentTransactions?.slice(0, 5) || []}
+            title="Recent Transactions"
           />
 
           <FinanceOverview

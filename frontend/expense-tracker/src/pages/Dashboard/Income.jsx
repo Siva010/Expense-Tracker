@@ -9,6 +9,7 @@ import { addThousandsSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import AddIncomeForm from "../../components/Forms/AddIncomeForm";
+import TransactionList from "../../components/Dashboard/TransactionList";
 
 const Income = () => {
   useUserAuth();
@@ -16,6 +17,7 @@ const Income = () => {
   const [incomeData, setIncomeData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [deleteError, setDeleteError] = useState("");
 
   const fetchIncomeData = async () => {
     if (loading) return;
@@ -39,6 +41,24 @@ const Income = () => {
     setRefreshTrigger(prev => prev + 1);
   };
 
+  const handleDeleteTransaction = async (id, type) => {
+    if (type !== 'income') return;
+    
+    setDeleteError("");
+    
+    try {
+      const response = await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
+      
+      if (response.data) {
+        console.log("Income deleted successfully:", id);
+        handleIncomeAdded();
+      }
+    } catch (err) {
+      console.error("Error deleting income:", err);
+      setDeleteError(err.response?.data?.message || "Failed to delete income.");
+    }
+  };
+
   useEffect(() => {
     fetchIncomeData();
   }, [refreshTrigger]);
@@ -46,7 +66,7 @@ const Income = () => {
   // Default values for rendering before data loads
   const totalIncome = incomeData?.totalIncome || 0;
   const monthlyIncome = incomeData?.monthlyIncome || 0;
-  const recentIncomes = incomeData?.recentIncomes || [];
+  const allTransactions = incomeData?.transactions || [];
 
   return (
     <DashboardLayout activeMenu="Income">
@@ -72,10 +92,11 @@ const Income = () => {
           </div>
 
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <RecentTransactions
-              transactions={recentIncomes}
-              title="Recent Income Transactions"
+            <TransactionList
+              transactions={allTransactions}
+              title="Income Transactions"
               type="income"
+              onDelete={handleDeleteTransaction}
             />
 
             <FinanceOverview
@@ -85,6 +106,8 @@ const Income = () => {
             />
           </div>
         </div>
+
+        {deleteError && <p className="text-red-500 text-sm mt-4 text-center">{deleteError}</p>}
       </div>
     </DashboardLayout>
   );

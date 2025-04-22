@@ -7,15 +7,14 @@ exports.addExpense = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const { icon, category, amount, date } = req.body;
+    const { category, amount, date } = req.body;
 
     // Validation: Check for missing fields
-    if (!category || !amount || !date || !icon) {
+    if (!category || !amount || !date) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const newExpense = new Expense({
       userId,
-      icon,
       category,
       amount,
       date: new Date(date),
@@ -33,7 +32,8 @@ exports.addExpense = async (req, res) => {
 exports.getAllExpense = async (req, res) => {
   const userId = req.user.id;
   try {
-    const allExpense = await Expense.find({ userId }).sort({ date: -1 });
+    // Sort by createdAt descending to get newest first reliably
+    const allExpense = await Expense.find({ userId }).sort({ createdAt: -1 });
 
     // Calculate Total Expense
     const totalExpense = allExpense.reduce((sum, item) => sum + item.amount, 0);
@@ -50,21 +50,11 @@ exports.getAllExpense = async (req, res) => {
           .reduce((sum, item) => sum + item.amount, 0);
     }
 
-    // Get Recent Expenses (e.g., latest 5)
-    const recentExpenses = allExpense.slice(0, 5);
-
-    // Prepare last 30 days expenses
-    const thirtyDaysAgo = moment().subtract(30, 'days').startOf('day').toDate();
-    const last30daysExpenses = {
-        transactions: allExpense.filter(item => moment(item.date).isSameOrAfter(thirtyDaysAgo))
-    };
-
+    // Rename allExpense to transactions and remove recentExpenses/last30days
     res.json({
       totalExpense,
-      monthlyExpense, // Now calculated based on most recent transaction's month
-      recentExpenses,
-      last30daysExpenses,
-      allExpense
+      monthlyExpense,
+      transactions: allExpense // Return the full list
     });
 
   } catch (error) {

@@ -49,16 +49,15 @@ const iconOptions = [
 const AddExpenseForm = ({ onExpenseAdded }) => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]); // Default to today
-  const [icon, setIcon] = useState(""); // Default to empty (optional)
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
-    // Icon is now optional, remove from validation check
+    // Validation without icon
     if (!category || !amount || !date) {
       setError("Please fill in Category, Amount, and Date.");
       return;
@@ -73,27 +72,22 @@ const AddExpenseForm = ({ onExpenseAdded }) => {
     setLoading(true);
 
     try {
+      // Payload without icon
       const payload = {
         category,
         amount: expenseAmount,
         date,
-        // Only include icon if one is selected
-        ...(icon && { icon }),
       };
 
       const response = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, payload);
 
       if (response.data) {
-        // Clear form
         setCategory("");
         setAmount("");
         setDate(new Date().toISOString().split("T")[0]);
-        setIcon(""); // Reset icon select
-        // Notify parent component to refresh data
         if (onExpenseAdded) {
           onExpenseAdded();
         }
-        // TODO: Add a success notification
         console.log("Expense added successfully!");
       }
     } catch (err) {
@@ -138,20 +132,6 @@ const AddExpenseForm = ({ onExpenseAdded }) => {
           onChange={(e) => setDate(e.target.value)}
           required
         />
-
-        {/* Icon Select Dropdown */}
-        <Select
-          label="Icon (Optional)"
-          id="expense-icon"
-          value={icon}
-          onChange={(e) => setIcon(e.target.value)}
-        >
-          {iconOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </Select>
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 

@@ -33,7 +33,8 @@ exports.addIncome = async (req, res) => {
 exports.getAllIncome = async (req, res) => {
   const userId = req.user.id;
   try {
-    const allIncome = await Income.find({ userId }).sort({ date: -1 });
+    // Sort by createdAt descending to get newest first reliably
+    const allIncome = await Income.find({ userId }).sort({ createdAt: -1 });
 
     // Calculate Total Income
     const totalIncome = allIncome.reduce((sum, item) => sum + item.amount, 0);
@@ -50,14 +51,11 @@ exports.getAllIncome = async (req, res) => {
         .reduce((sum, item) => sum + item.amount, 0);
     }
 
-    // Get Recent Incomes (e.g., latest 5)
-    const recentIncomes = allIncome.slice(0, 5);
-
+    // Rename allIncome to transactions and remove recentIncomes slice
     res.json({
       totalIncome,
       monthlyIncome, // Now calculated based on most recent transaction's month
-      recentIncomes,
-      allIncome // Optionally include all income if needed elsewhere, or remove
+      transactions: allIncome // Return the full list
     });
 
   } catch (error) {
