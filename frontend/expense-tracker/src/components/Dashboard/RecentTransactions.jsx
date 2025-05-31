@@ -8,7 +8,7 @@ const RecentTransactions = ({ transactions, title = "Recent Transactions", type 
     // Ensure card takes full height of its grid area and children can flex
     <div className="card h-full flex flex-col"> 
       <div className="flex-shrink-0 flex items-center justify-between mb-4"> {/* Prevent header shrinking, add margin */} 
-        <h5 className="text-lg">{title}</h5>
+        <h5 className={`text-lg ${isDark ? "text-black" : "text-gray-700"}`}>{title}</h5>
       </div>
 
       {/* Scrollable container */}

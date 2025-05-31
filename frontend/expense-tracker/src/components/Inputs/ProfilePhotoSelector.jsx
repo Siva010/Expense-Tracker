@@ -1,17 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
+import { useRef, useState } from "react";
 import { LuUser, LuUpload, LuTrash } from "react-icons/lu";
 
 const ProfilePhotoSelector = ({ image, setImage }) => {
   const inputRef = useRef(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-
-  useEffect(() => {
-    if (typeof image === "string") {
-      setPreviewUrl(image);
-    } else if (!image) {
-      setPreviewUrl(null);
-    }
-  }, [image]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -35,6 +28,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
   };
 
   const onChooseFile = () => {
+    console.log('Upload button clicked', inputRef.current);
     if (inputRef.current) inputRef.current.click();
   };
 
@@ -46,23 +40,16 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
         ref={inputRef}
         onChange={handleImageChange}
         className="hidden"
-        aria-label="Upload profile photo"
       />
 
-      {!previewUrl ? (
-        <div
-          className="w-14 h-14 flex items-center justify-center bg-purple-100 rounded-full relative "
-          tabIndex={0}
-          aria-label="Profile avatar placeholder"
-        >
+      {!image ? (
+        <div className="w-14 h-14 flex items-center justify-center bg-purple-100 rounded-full relative ">
           <LuUser className="text-2xl text-black" />
 
           <button
             type="button"
             className="w-6 h-6 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 z-50 pointer-events-auto"
             onClick={onChooseFile}
-            aria-label="Choose profile photo"
-            tabIndex={0}
           >
             <LuUpload size={16} />
           </button>
@@ -72,14 +59,12 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
           <img
             src={previewUrl}
             alt="Profile"
-            className="w-14 h-14 rounded-full object-cover"
+            className="w-14 h-14  rounded-full object-cover"
           />
           <button
             type="button"
-            className="w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full absolute -bottom-1 -right-1"
+            className="w-6 h-6 flex items-center justify-center  bg-red-500 text-white rounded-full absolute -bottom-1 -right-1 "
             onClick={handleRemoveImage}
-            aria-label="Remove profile photo"
-            tabIndex={0}
           >
             <LuTrash size={16} />
           </button>

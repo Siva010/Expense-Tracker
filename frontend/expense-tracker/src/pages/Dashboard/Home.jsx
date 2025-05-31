@@ -11,20 +11,14 @@ import { addThousandsSeparator } from "../../utils/helper";
 import TransactionList from "../../components/Dashboard/TransactionList";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import { useDashboard } from "../../context/DashboardContext";
-<<<<<<< HEAD
-=======
 import { useTheme } from "../../context/ThemeContext";
->>>>>>> 1c7265a (final product)
 
 const Home = () => {
   useUserAuth();
   const { refreshTrigger } = useDashboard();
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
   const { theme } = useTheme();
   const isDark = theme === "dark";
->>>>>>> 1c7265a (final product)
 
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -55,11 +49,7 @@ const Home = () => {
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-<<<<<<< HEAD
-      <div className="my-5 mx-auto">
-=======
       <div className={`my-5 mx-auto ${isDark ? "text-white" : ""}`}>
->>>>>>> 1c7265a (final product)
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard
             icon={<IoMdCard />}
@@ -82,31 +72,21 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-<<<<<<< HEAD
-=======
           <div className={isDark ? "text-white" : ""}>
->>>>>>> 1c7265a (final product)
           <TransactionList
             transactions={dashboardData?.recentTransactions || []}
             title="Recent Transactions"
             hideDeleteBtn={true}
           />
-<<<<<<< HEAD
-
-=======
           </div>
 
           <div className={isDark ? "text-white" : ""}>
->>>>>>> 1c7265a (final product)
           <FinanceOverview
             totalBalance={dashboardData?.totalBalance || 0}
             totalIncome={dashboardData?.totalIncome || 0}
             totalExpense={dashboardData?.totalExpense || 0}
           />
-<<<<<<< HEAD
-=======
           </div>
->>>>>>> 1c7265a (final product)
         </div>
       </div>
     </DashboardLayout>

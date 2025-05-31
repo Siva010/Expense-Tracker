@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import React, { useRef, useEffect, useState } from "react";
->>>>>>> 1c7265a (final product)
 import {
   PieChart,
   Pie,
@@ -18,10 +15,6 @@ const CustomPieChart = ({
   colors,
   showTextAnchor,
 }) => {
-<<<<<<< HEAD
-  return (
-    <ResponsiveContainer width="100%" height={300} className="cursor-pointer">
-=======
   // Responsive radii based on container size
   const [size, setSize] = useState(0);
   const chartRef = useRef();
@@ -56,7 +49,6 @@ const CustomPieChart = ({
         style={{ maxWidth: 320, aspectRatio: 1, minHeight: 0 }}
       >
         <ResponsiveContainer width="100%" aspect={1}>
->>>>>>> 1c7265a (final product)
       <PieChart>
         <Pie
           data={data}
@@ -64,52 +56,14 @@ const CustomPieChart = ({
           nameKey="name"
           cx="50%"
           cy="50%"
-<<<<<<< HEAD
-          outerRadius={130}
-          innerRadius={100}
-=======
               outerRadius={outerRadius}
               innerRadius={innerRadius}
->>>>>>> 1c7265a (final product)
           labelLine={false}
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}
         </Pie>
-<<<<<<< HEAD
-
-        <Tooltip />
-        <Legend />
-
-        {showTextAnchor && (
-          <>
-            <text
-              x="50%"
-              y="50%"
-              dy={-25}
-              textAnchor="middle"
-              fill="#666"
-              fontSize="14px"
-            >
-              {label}
-            </text>
-            <text
-              x="50%"
-              y="50%"
-              dy={8}
-              textAnchor="middle"
-              fill="#333"
-              fontSize="24px"
-              fontWeight="semi-bold"
-            >
-              {totalAmount}
-            </text>
-          </>
-        )}
-      </PieChart>
-    </ResponsiveContainer>
-=======
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>
@@ -121,7 +75,6 @@ const CustomPieChart = ({
         </div>
       )}
     </div>
->>>>>>> 1c7265a (final product)
   );
 };
 

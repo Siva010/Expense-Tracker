@@ -1,10 +1,7 @@
 import React from "react";
 import CustomPieChart from "../Charts/CustomPieChart";
 import { addThousandsSeparator } from "../../utils/helper";
-<<<<<<< HEAD
-=======
 import { useTheme } from "../../context/ThemeContext";
->>>>>>> 1c7265a (final product)
 
 // Define colors for consistency
 const INCOME_COLOR = "#FF6900"; // Orange
@@ -21,11 +18,8 @@ const FinanceOverview = ({
   monthlyIncome, // Add monthly props
   monthlyExpense,
 }) => {
-<<<<<<< HEAD
-=======
   // const { theme } = useTheme();
   // const isDark = theme === "dark";
->>>>>>> 1c7265a (final product)
   let chartData = [];
   let chartLabel = "";
   let chartTotalAmount = "";
@@ -62,14 +56,7 @@ const FinanceOverview = ({
   chartData = chartData.filter(item => item.amount > 0);
 
   return (
-<<<<<<< HEAD
-    <div className="card">
-      <div className="flex items-center justify-between">
-        <h5 className="text-lg">Financial Overview</h5>
-      </div>
-=======
     <div className={`card`}> 
->>>>>>> 1c7265a (final product)
       <CustomPieChart
         data={chartData}
         label={chartLabel}

@@ -6,10 +6,7 @@ import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import uploadImage from "../../utils/uploadImage";
-<<<<<<< HEAD
-=======
 import { useTheme } from "../../context/ThemeContext";
->>>>>>> 1c7265a (final product)
 
 const Profile = () => {
   useUserAuth();
@@ -18,11 +15,8 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-<<<<<<< HEAD
-=======
   const { theme } = useTheme();
   const isDark = theme === "dark";
->>>>>>> 1c7265a (final product)
 
   const handleProfileUpdate = async () => {
     if (!profilePic) {
@@ -69,13 +63,9 @@ const Profile = () => {
   return (
     <DashboardLayout activeMenu="Profile">
       <div className="max-w-2xl mx-auto">
-<<<<<<< HEAD
-        <h2 className="text-2xl font-semibold mb-6">Profile Settings</h2>
-=======
         <h2 className={`text-2xl font-semibold mb-6 ${isDark ? "text-white" : "text-black"}`}>Profile Settings</h2>
->>>>>>> 1c7265a (final product)
         
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className={`${isDark ? "bg-gray-800 border border-gray-700 text-white" : "bg-white border border-gray-400 pr-10"} rounded-lg shadow p-6`}>
           <div className="mb-6">
             <h3 className="text-lg font-medium mb-4">Profile Picture</h3>
             <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />

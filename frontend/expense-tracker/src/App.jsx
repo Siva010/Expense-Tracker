@@ -13,18 +13,12 @@ import Expense from "./pages/Dashboard/Expense";
 import Profile from "./pages/Dashboard/Profile";
 import UserProvider from "./context/UserContext";
 import { DashboardProvider } from "./context/DashboardContext";
-<<<<<<< HEAD
-
-const App = () => {
-  return (
-=======
 import Landing from "./pages/Landing";
 import { ThemeProvider } from "./context/ThemeContext";
 
 const App = () => {
   return (
     <ThemeProvider>
->>>>>>> 1c7265a (final product)
     <UserProvider>
       <DashboardProvider>
         <div>
@@ -42,10 +36,7 @@ const App = () => {
         </div>
       </DashboardProvider>
     </UserProvider>
-<<<<<<< HEAD
-=======
     </ThemeProvider>
->>>>>>> 1c7265a (final product)
   );
 };
 
@@ -59,10 +50,6 @@ const Root = () => {
   return isAuthenticated ? (
     <Navigate to="/dashboard" />
   ) : (
-<<<<<<< HEAD
-    <Navigate to="/login" />
-=======
     <Landing />
->>>>>>> 1c7265a (final product)
   );
 };

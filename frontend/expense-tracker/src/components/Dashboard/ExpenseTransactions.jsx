@@ -6,7 +6,7 @@ const ExpenseTransactions = ({ transactions, title = "Expenses" }) => {
   return (
     <div className="card">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg">{title}</h5>
+        <h5 className={`text-lg ${isDark ? "text-black" : "text-gray-700"}`}>{title}</h5>
       </div>
 
       <div className="mt-6">

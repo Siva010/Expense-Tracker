@@ -6,10 +6,7 @@ import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance"; // or correct path
 import { API_PATHS } from "../../utils/apiPaths"; // or correct path
 import { UserContext } from "../../context/UserContext";
-<<<<<<< HEAD
-=======
 import { useTheme } from "../../context/ThemeContext";
->>>>>>> 1c7265a (final product)
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,11 +14,8 @@ const Login = () => {
   const [error, setError] = useState(null);
 
   const { updateUser } = useContext(UserContext);
-<<<<<<< HEAD
-=======
   const { theme } = useTheme();
   const isDark = theme === "dark";
->>>>>>> 1c7265a (final product)
 
   const navigate = useNavigate();
 
@@ -63,14 +57,6 @@ const Login = () => {
 
   return (
     <AuthLayout>
-<<<<<<< HEAD
-      <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black ">Welcome back </h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          {" "}
-          Please Enter your details to login
-        </p>
-=======
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center ">
         {/* Shaded header section */}
         <div className="w-full flex flex-col items-center justify-center pb-6 rounded-b-2xl bg-gradient-to-b from-indigo-500 to-indigo-300/70">
@@ -86,7 +72,6 @@ const Login = () => {
         <div className="px-4 sm:px-8 pt-8 pb-2">
           <h3 className={`text-xl font-semibold mb-1 ${isDark ? "text-white" : "text-black"}`}>Welcome back</h3>
           <p className={`text-xs mt-[5px] mb-6 ${isDark ? "text-gray-300" : "text-slate-700"}`}>Please Enter your details to login</p>
->>>>>>> 1c7265a (final product)
 
         <form onSubmit={handleLogin}>
           <Input
@@ -111,21 +96,14 @@ const Login = () => {
             LOGIN
           </button>
 
-<<<<<<< HEAD
-          <p className="text-[13px] text-slate-800 mt-3">
-=======
             <p className={`text-[13px] mt-3 ${isDark ? "text-gray-200" : "text-slate-800"}`}>
->>>>>>> 1c7265a (final product)
             Don't Have an account?{" "}
             <Link className="font-medium text-primary underline" to="/signup">
               SignUp
             </Link>
           </p>
         </form>
-<<<<<<< HEAD
-=======
         </div>
->>>>>>> 1c7265a (final product)
       </div>
     </AuthLayout>
   );

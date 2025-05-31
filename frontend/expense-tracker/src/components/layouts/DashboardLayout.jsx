@@ -2,16 +2,6 @@ import React, { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import Navbar from "./Navbar";
 import SideMenu from "./SideMenu";
-<<<<<<< HEAD
-
-const DashboardLayout = ({ children, activeMenu }) => {
-  const { user } = useContext(UserContext);
-
-  return (
-    <div className="">
-      <Navbar activeMenu={activeMenu} />
-
-=======
 import { useTheme } from "../../context/ThemeContext";
 
 const DashboardLayout = ({ children, activeMenu }) => {
@@ -36,18 +26,13 @@ const DashboardLayout = ({ children, activeMenu }) => {
           )}
         </button>
       </Navbar>
->>>>>>> 1c7265a (final product)
       {user && (
         <div className="flex">
           <div className="max-[1080px]:hidden">
             <SideMenu activeMenu={activeMenu} />
           </div>
 
-<<<<<<< HEAD
-          <div className="grow mx-5">{children}</div>
-=======
           <div className={`grow mx-5 ${isDark ? "bg-gray-900 min-h-screen" : ""}`}>{children}</div>
->>>>>>> 1c7265a (final product)
         </div>
       )}
     </div>
@@ -55,8 +40,5 @@ const DashboardLayout = ({ children, activeMenu }) => {
 };
 
 export default DashboardLayout;
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 1c7265a (final product)

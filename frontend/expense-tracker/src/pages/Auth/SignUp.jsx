@@ -8,10 +8,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/UserContext";
 import uploadImage from "../../utils/uploadImage";
-<<<<<<< HEAD
-=======
 import { useTheme } from "../../context/ThemeContext";
->>>>>>> 1c7265a (final product)
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -23,11 +20,8 @@ const SignUp = () => {
 
   const { updateUser } = useContext(UserContext); // Assuming you have a UserContext to manage user state
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
   const { theme } = useTheme();
   const isDark = theme === "dark";
->>>>>>> 1c7265a (final product)
 
   // Handle SignUp Form Submit
   const handleSignUp = async (e) => {
@@ -84,17 +78,6 @@ const SignUp = () => {
   return (
     <AuthLayout>
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center ">
-<<<<<<< HEAD
-        <h3 className="text-xl font-semibold text-black ">Create an Account</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Join us today by entering yout details below.
-        </p>
-
-        <form onSubmit={handleSignUp}>
-          <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-=======
         {/* Shaded header section */}
         <div className="w-full flex flex-col items-center justify-center pb-4 rounded-b-2xl bg-gradient-to-b from-indigo-500 to-indigo-300/70">
           <div className="w-12 h-12 rounded-full bg-indigo-400 flex items-center justify-center mb-2 mt-1">
@@ -115,7 +98,6 @@ const SignUp = () => {
               <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} size={56} />
             </div>
             <div className="flex flex-col gap-3">
->>>>>>> 1c7265a (final product)
             <Input
               value={fullName}
               onChange={(event) => setFullName(event.target.value)}
@@ -130,11 +112,6 @@ const SignUp = () => {
               placeholder="john@example.com"
               type="text"
             />
-<<<<<<< HEAD
-
-            <div className="col-span-2">
-=======
->>>>>>> 1c7265a (final product)
               <Input
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -143,29 +120,11 @@ const SignUp = () => {
                 type="password"
               />
             </div>
-<<<<<<< HEAD
-          </div>
-
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
-
-          <button type="submit" className="btn-primary">
-            SIGN UP
-          </button>
-
-          <p className="text-[13px] text-slate-800 mt-3">
-            Already have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/login">
-              Login
-            </Link>
-          </p>
-        </form>
-=======
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
             <button type="submit" className="btn-primary mt-2 mb-1 py-2 text-base">SIGN UP</button>
             <p className={`text-[13px] mt-2 ${isDark ? "text-gray-200" : "text-slate-800"}`}>Already have an account? <Link className="font-medium text-primary underline" to="/login">Login</Link></p>
         </form>
         </div>
->>>>>>> 1c7265a (final product)
       </div>
     </AuthLayout>
   );
